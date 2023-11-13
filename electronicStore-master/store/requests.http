@@ -1,3 +1,10 @@
-GET http://localhost:8080/api/customer/
-
 POST http://localhost:8080/api/customer
+Content-Type: application/json
+  {
+    "customerName": "John Doe",
+    "customerEmail": "johndoe@example.com",
+    "customerPassword": "password123"
+  }
+
+###
+GET http://localhost:8080/api/customer/all
