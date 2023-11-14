@@ -2,6 +2,10 @@ package com.electronics.store.model;
 
 import jakarta.persistence.*;
 
+/*
+1 Product can have N DiscountRules
+ */
+
 @Entity
 public class Product {
     @Id
@@ -19,7 +23,7 @@ public class Product {
     Integer stockQuantity;
 
     @Column(name = "discountRuleId")
-    String discountRuleId;
+    Integer discountRuleId;
 
     public Integer getProductEntityId() {
         return productEntityId;
@@ -61,11 +65,11 @@ public class Product {
         this.stockQuantity = stockQuantity;
     }
 
-    public String getDiscountRuleId() {
+    public Integer getDiscountRuleId() {
         return discountRuleId;
     }
 
-    public void setDiscountRuleId(String discountRuleId) {
+    public void setDiscountRuleId(Integer discountRuleId) {
         this.discountRuleId = discountRuleId;
     }
 }

@@ -1,10 +1,33 @@
-POST http://localhost:8080/api/customer
-Content-Type: application/json
-  {
-    "customerName": "John Doe",
-    "customerEmail": "johndoe@example.com",
-    "customerPassword": "password123"
-  }
-
+###CUSTOMER
 ###
 GET http://localhost:8080/api/customer/all
+
+###
+POST http://localhost:8080/api/customer
+Content-Type: application/json
+
+{
+  "customerName": "John Doe",
+  "customerEmail": "johndoe@example.com",
+  "customerPassword": "password123"
+}
+
+###
+GET http://localhost:8080/api/customer/2
+
+###
+DELETE http://localhost:8080/api/customer/1
+
+
+
+###DISCOUNT
+GET http://localhost:8080/api/discountRule/all
+
+###
+POST http://localhost:8080/api/discountRule/
+Content-Type: application/json
+
+{
+  "itemQuantity": 1,
+  "discountRate": 50
+}
