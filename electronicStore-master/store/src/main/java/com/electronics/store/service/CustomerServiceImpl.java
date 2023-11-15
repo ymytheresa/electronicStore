@@ -31,10 +31,10 @@ public class CustomerServiceImpl {
     public List<Customer> getAllCustomers(){
         return this.customerRepository.findAll();
     }
-    public Customer updateCustomer(Customer customer){
-        Optional<Customer> customerOptional = customerRepository.findById(customer.getCustomerId());
+    public Customer updateCustomer(Integer customerId, Customer customer){
+        Optional<Customer> customerOptional = customerRepository.findById(customerId);
         if(customerOptional.isPresent()){
-            customerRepository.deleteById(customer.getCustomerId()); //todo, replace instead of remove then add later
+            customerRepository.deleteById(customerId); //todo, replace instead of remove then add later
             return customerRepository.save(customer);
         }
         return null; //todo, throw exception

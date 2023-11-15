@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 @Service
 @Transactional
-public class DiscountRoleServiceImpl {
+public class DiscountRuleServiceImpl {
     @Autowired
     private DiscountRuleRepository discountRuleRepository;
 
@@ -25,20 +25,18 @@ public class DiscountRoleServiceImpl {
 
     public DiscountRule getDiscountRule(Integer discountRuleId){
         Optional<DiscountRule> discountRuleOptional = discountRuleRepository.findById(discountRuleId);
-        if(discountRuleOptional.isPresent()){
-            return discountRuleOptional.get();
-        }
-        return null; //todo, throw exception
+        //todo, throw exception
+        return discountRuleOptional.orElse(null);
     }
 
     public List<DiscountRule> getAllDiscountRules(){
         return this.discountRuleRepository.findAll();
     }
 
-    public DiscountRule updateDiscountRule(DiscountRule discountRule){
-        Optional<DiscountRule> discountRuleOptional = discountRuleRepository.findById(discountRule.getDiscountRuleId());
+    public DiscountRule updateDiscountRule(Integer discountRuleId,DiscountRule discountRule){
+        Optional<DiscountRule> discountRuleOptional = discountRuleRepository.findById(discountRuleId);
         if(discountRuleOptional.isPresent()){
-            discountRuleRepository.deleteById(discountRule.getDiscountRuleId()); //todo, replace instead of remove then add later
+            discountRuleRepository.deleteById(discountRuleId); //todo, replace instead of remove then add later
             return discountRuleRepository.save(discountRule);
         }
         return null; //todo, throw exception

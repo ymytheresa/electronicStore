@@ -10,9 +10,6 @@ import jakarta.persistence.*;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer productEntityId;
-
-    @Column(name = "productId")
     Integer productId;
 
     @Column(name = "productName")
@@ -22,16 +19,7 @@ public class Product {
     @Column(name = "stockQuantity")
     Integer stockQuantity;
 
-    @Column(name = "discountRuleId")
-    Integer discountRuleId;
 
-    public Integer getProductEntityId() {
-        return productEntityId;
-    }
-
-    public void setProductEntityId(Integer productEntityId) {
-        this.productEntityId = productEntityId;
-    }
 
     public Integer getProductId() {
         return productId;
@@ -63,13 +51,5 @@ public class Product {
 
     public void setStockQuantity(Integer stockQuantity) {
         this.stockQuantity = stockQuantity;
-    }
-
-    public Integer getDiscountRuleId() {
-        return discountRuleId;
-    }
-
-    public void setDiscountRuleId(Integer discountRuleId) {
-        this.discountRuleId = discountRuleId;
     }
 }

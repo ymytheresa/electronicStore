@@ -14,6 +14,9 @@ public class ShoppingCart {
     @Column(name = "totalPrice")
     Double totalPrice;
 
+    @Column(name = "discount")
+    Double discount;
+
     public Integer getShoppingCartId() {
         return shoppingCartId;
     }
@@ -45,4 +48,13 @@ public class ShoppingCart {
     public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
 }

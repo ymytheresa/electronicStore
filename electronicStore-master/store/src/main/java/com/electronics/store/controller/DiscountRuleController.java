@@ -1,6 +1,6 @@
 package com.electronics.store.controller;
 
-import com.electronics.store.service.DiscountRoleServiceImpl;
+import com.electronics.store.service.DiscountRuleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/api/discountRule")
 public class DiscountRuleController {
     @Autowired
-    private DiscountRoleServiceImpl discountRuleService;
+    private DiscountRuleServiceImpl discountRuleService;
 
     @GetMapping("/all")
     public List<DiscountRule> getAllDiscountRules(){
@@ -29,9 +29,9 @@ public class DiscountRuleController {
         return discountRuleService.createDiscountRule(discountRule);
     }
 
-    @PutMapping
-    public DiscountRule updateDiscountRule(@RequestBody DiscountRule discountRule){
-        return discountRuleService.updateDiscountRule(discountRule);
+    @PutMapping("/{discountRuleId}")
+    public DiscountRule updateDiscountRule(@PathVariable Integer discountRuleId,@RequestBody DiscountRule discountRule){
+        return discountRuleService.updateDiscountRule(discountRuleId, discountRule);
     }
 
     @DeleteMapping("/{discountRuleId}")
