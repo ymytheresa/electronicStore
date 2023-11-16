@@ -78,29 +78,55 @@ public class CartProductServiceImpl {
     }
 
     public CartProduct addQuantityCartProduct(Integer cartId, Integer productId, Integer quantity) {
-        Optional<CartProduct> cartProductOptional = cartProductRepository.findByProductId(productId);
+        Optional<CartProduct> cartProductOptional = cartProductRepository.findByProductIdAndShoppingCartId(cartId, productId);
+        CartProduct cartProduct = new CartProduct();
+        int totalQuantity = 0;
         if(cartProductOptional.isPresent()){
-            CartProduct cartProduct = cartProductOptional.get();
-            int totalQuantity = cartProduct.getQuantity() + quantity;
-            Double oldPrice = cartProduct.getPrice();
-            Double oldDiscount = cartProduct.getDiscount();
-            Double price = getPrice(productId, totalQuantity);
-            Double discount = getDiscount(price, productId, totalQuantity);
-            cartProduct.setPrice(price);
-            cartProduct.setDiscount(discount);
-            productService.addAmountToQuantity(productId, -quantity);
-            shoppingCartService.changeCartPrice(cartId, oldPrice, price);
-            shoppingCartService.changeCartDiscount(cartId,oldDiscount,discount);
-            return cartProductRepository.save(cartProduct);
+            cartProduct = cartProductOptional.get();
+            totalQuantity = Math.max(cartProduct.getQuantity() + quantity, 0);
+            cartProduct.setQuantity(totalQuantity);
+            if(totalQuantity == 0){
+                deleteCartProduct(cartProduct);
+                return null;
+            }
+        }else if(quantity > 0){
+            totalQuantity = Math.max(quantity, 0);
+            cartProduct = new CartProduct();
+            cartProduct.setShoppingCartId(cartId);
+            cartProduct.setProductId(productId);
+            cartProduct.setQuantity(totalQuantity);
+            cartProduct.setPrice(0.0);
+            cartProduct.setDiscount(0.0);
+        }else{
+            return null;
         }
-        return null;
+
+        Double oldPrice = cartProduct.getPrice();
+        Double oldDiscount = cartProduct.getDiscount();
+        Double price = getPrice(productId, totalQuantity);
+        Double discount = getDiscount(price, productId, totalQuantity);
+        cartProduct.setPrice(price);
+        cartProduct.setDiscount(discount);
+        productService.addAmountToQuantity(productId, -quantity); //max is stock. mod later
+        shoppingCartService.changeCartPrice(cartId, oldPrice, price);
+        shoppingCartService.changeCartDiscount(cartId,oldDiscount,discount);
+        return cartProductRepository.save(cartProduct);
     }
 
-    public void deleteCartProduct(Integer cartProductId){
-        Optional<CartProduct> cartProductOptional = cartProductRepository.findById(cartProductId);
-        if(cartProductOptional.isPresent()){
-            cartProductRepository.deleteById(cartProductId);
-        }
-        //throw exception?
+
+    public void deleteCartProduct(CartProduct cartProduct) {
+        shoppingCartService.changeCartPrice(cartProduct.getShoppingCartId(), cartProduct.getPrice(), 0.0);
+        shoppingCartService.changeCartDiscount(cartProduct.getShoppingCartId(), cartProduct.getDiscount(), 0.0);
+        cartProductRepository.delete(cartProduct);
+    }
+
+    public CartProduct getCartProductFromCart(Integer cartId, Integer productId) {
+        Optional<CartProduct> cartProductOptional = cartProductRepository.findByProductIdAndShoppingCartId(cartId, productId);
+        //todo, throw exception
+        return cartProductOptional.orElse(null);
+    }
+
+    public List<CartProduct> getCartProductsByCartId(Integer cartId) {
+        return this.cartProductRepository.findByShoppingCartId(cartId);
     }
 }

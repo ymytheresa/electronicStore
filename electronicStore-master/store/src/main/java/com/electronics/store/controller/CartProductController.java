@@ -8,6 +8,7 @@ import com.electronics.store.model.CartProduct;
 
 import java.util.List;
 
+// should not be called. for testing only
 @RestController
 @RequestMapping("/api/cartProduct")
 public class CartProductController {
@@ -19,9 +20,9 @@ public class CartProductController {
         return cartProductService.getAllCartProducts();
     }
 
-    @GetMapping("/{cartProductId}")
-    public CartProduct getCartProduct(@PathVariable Integer cartProductId){
-        return cartProductService.getCartProduct(cartProductId);
+    @GetMapping("/cartId/{cartId}/productId/{productId}")
+    public CartProduct getCartProductFromCart(@PathVariable Integer cartId,@PathVariable Integer productId){
+        return cartProductService.getCartProductFromCart(cartId, productId);
     }
 
     @PostMapping("/{cartId}/{productId}/{quantity}")
@@ -32,6 +33,11 @@ public class CartProductController {
     @PutMapping("/{cartId}/{productId}/{quantity}")
     public CartProduct updateCartProduct(@PathVariable Integer cartId ,@PathVariable Integer productId,@PathVariable Integer quantity){
         return cartProductService.addQuantityCartProduct(cartId,productId,quantity);
+    }
+
+    @GetMapping("/cartId/{cartId}")
+    public List<CartProduct> getCartProductsByCartId(@PathVariable Integer cartId){
+        return cartProductService.getCartProductsByCartId(cartId);
     }
 
 }

@@ -13,6 +13,9 @@ public class ShoppingCartController {
     @Autowired
     private ShoppingCartServiceImpl shoppingCartService;
 
+    @Autowired
+    private CartProductController cartProductController;
+
     @GetMapping("/all")
     public List<ShoppingCart> getAllShoppingCarts(){
         return shoppingCartService.getAllShoppingCarts();
@@ -28,15 +31,16 @@ public class ShoppingCartController {
         return shoppingCartService.getShoppingCartsByCustomerId(customerId);
     }
 
-    @PostMapping("/{customerId}")
+    @PostMapping("/customer/{customerId}")
     public ShoppingCart createShoppingCart(@PathVariable Integer customerId){
         return shoppingCartService.createShoppingCart(customerId);
     }
 
-//    @PutMapping("/{shoppingCartId}/product/{productId}/quantity/{quantity}")
-//    public ShoppingCart updateShoppingCart(@PathVariable Integer shoppingCartId, @PathVariable Integer productId, @PathVariable Integer quantity){
-//        return shoppingCartService.updateShoppingCart(shoppingCartId,productId,quantity);
-//    }
+    @PutMapping("/cart/{shoppingCartId}/product/{productId}/quantity/{quantity}")
+    public ShoppingCart updateShoppingCart(@PathVariable Integer shoppingCartId, @PathVariable Integer productId, @PathVariable Integer quantity){
+        cartProductController.updateCartProduct(shoppingCartId,productId,quantity);
+        return shoppingCartService.getShoppingCart(shoppingCartId);
+    }
 
     @PutMapping("/{shoppingCartId}/status/{status}")
     public ShoppingCart updateShoppingCartStatus(@PathVariable Integer shoppingCartId, @PathVariable String status){
