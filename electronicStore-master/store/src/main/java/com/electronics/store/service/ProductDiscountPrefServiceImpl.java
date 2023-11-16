@@ -15,7 +15,14 @@ public class ProductDiscountPrefServiceImpl {
     @Autowired
     private ProductDiscountPrefRepository productDiscountPrefRepository;
 
-    public ProductDiscountPref createProductDiscountPref(ProductDiscountPref productDiscountPref){
+    public ProductDiscountPref createProductDiscountPref(Integer productId, Integer discountRuleId){
+        Optional<ProductDiscountPref> productDiscountPrefOptional = productDiscountPrefRepository.findByProductIdAndDiscountRuleId(productId,discountRuleId);
+        if(productDiscountPrefOptional.isPresent()){
+            return productDiscountPrefOptional.get();
+        }
+        ProductDiscountPref productDiscountPref = new ProductDiscountPref();
+        productDiscountPref.setProductId(productId);
+        productDiscountPref.setDiscountRuleId(discountRuleId);
         return productDiscountPrefRepository.save(productDiscountPref);
     }
 

@@ -14,6 +14,14 @@ public class DiscountRule {
     @Column(name = "discountRate")
     Double discountRate;
 
+    public DiscountRule() {
+    }
+
+    public DiscountRule(Integer itemQuantity, Double discountRate) {
+        this.itemQuantity = itemQuantity;
+        this.discountRate = discountRate;
+    }
+
     public Integer getDiscountRuleId() {
         return discountRuleId;
     }

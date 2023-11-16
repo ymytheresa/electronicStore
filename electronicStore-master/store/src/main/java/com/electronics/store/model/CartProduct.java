@@ -22,6 +22,17 @@ public class CartProduct {
     @Column(name = "discount")
     Double discount;
 
+    public CartProduct() {
+    }
+
+    public CartProduct(Integer productId, Integer shoppingCartId, Integer quantity, Double price, Double discount) {
+        this.productId = productId;
+        this.shoppingCartId = shoppingCartId;
+        this.quantity = quantity;
+        this.price = price;
+        this.discount = discount;
+    }
+
     public Integer getCartProductId() {
         return cartProductId;
     }

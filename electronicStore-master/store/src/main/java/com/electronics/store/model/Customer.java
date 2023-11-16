@@ -14,6 +14,14 @@ public class Customer {
     @Column (name = "customerPassword")
     String customerPassword;
 
+    public Customer() {}
+
+    public Customer(String customerName, String customerEmail, String customerPassword) {
+        this.customerName = customerName;
+        this.customerEmail = customerEmail;
+        this.customerPassword = customerPassword;
+    }
+
     public Integer getCustomerId() {
         return customerId;
     }

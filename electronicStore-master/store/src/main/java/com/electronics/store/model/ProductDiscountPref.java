@@ -14,6 +14,13 @@ public class ProductDiscountPref {
     @Column(name = "discountRuleId")
     Integer discountRuleId;
 
+    public ProductDiscountPref() {}
+
+    public ProductDiscountPref(Integer productId, Integer discountRuleId) {
+        this.productId = productId;
+        this.discountRuleId = discountRuleId;
+    }
+
     public Integer getProductDiscountPrefId() {
         return productDiscountPrefId;
     }
@@ -32,5 +39,9 @@ public class ProductDiscountPref {
 
     public Integer getDiscountRuleId() {
         return discountRuleId;
+    }
+
+    public void setDiscountRuleId(Integer discountRuleId) {
+        this.discountRuleId = discountRuleId;
     }
 }

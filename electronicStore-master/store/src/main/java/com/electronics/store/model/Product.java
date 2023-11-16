@@ -19,8 +19,13 @@ public class Product {
     @Column(name = "stockQuantity")
     Integer stockQuantity;
 
+    public Product() {}
 
-
+    public Product(String productName, Double productPrice, Integer stockQuantity) {
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.stockQuantity = stockQuantity;
+    }
     public Integer getProductId() {
         return productId;
     }

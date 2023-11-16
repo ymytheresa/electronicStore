@@ -17,6 +17,15 @@ public class ShoppingCart {
     @Column(name = "discount")
     Double discount;
 
+    public ShoppingCart() {}
+
+    public ShoppingCart(Integer customerId, Boolean completed, Double totalPrice, Double discount) {
+        this.customerId = customerId;
+        this.completed = completed;
+        this.totalPrice = totalPrice;
+        this.discount = discount;
+    }
+
     public Integer getShoppingCartId() {
         return shoppingCartId;
     }

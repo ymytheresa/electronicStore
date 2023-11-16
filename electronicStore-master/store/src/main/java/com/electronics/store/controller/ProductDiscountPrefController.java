@@ -23,9 +23,9 @@ public class ProductDiscountPrefController {
         return productDiscountPrefService.getProductDiscountPref(productDiscountPrefId);
     }
 
-    @PostMapping
-    public ProductDiscountPref createProductDiscountPref(@RequestBody ProductDiscountPref productDiscountPref) {
-        return productDiscountPrefService.createProductDiscountPref(productDiscountPref);
+    @PostMapping("/productId/{productId}/ruleid/{discountRuleId}/")
+    public ProductDiscountPref createProductDiscountPref(@PathVariable Integer productId, @PathVariable Integer discountRuleId) {
+        return productDiscountPrefService.createProductDiscountPref(productId, discountRuleId);
     }
 
     @PutMapping("/{productDiscountPrefId}")
